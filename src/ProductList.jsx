@@ -266,6 +266,8 @@ function ProductList({ onHomeClick }) {
             [plant.name]: true,
         }));
     }
+
+    const findItem = (plant) => cart.find((item) => item.name === plant.name)
     
     const calculateTotalQuantity = () => {
         return cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
@@ -319,8 +321,9 @@ function ProductList({ onHomeClick }) {
                                             <div className="product-description">{plant.description}</div>
                                             <div className="product-cost">{plant.cost}</div>
                                             <button
-                                                className="product-button"
+                                                className={findItem(plant) ? 'added-to-cart product-button' : 'product-button'}
                                                 onClick={() => handleAddToCart(plant)}
+                                                disabled={findItem(plant)}
                                             >
                                                 Add to Cart
                                             </button>
